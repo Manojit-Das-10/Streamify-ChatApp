@@ -19,7 +19,7 @@ export async function generateOTP(req, res) {
     }
   
     const existingUser = await Otp.findOne({ email });
-      if (existingUser.verified) {
+      if (existingUser.verified === true) {
         return res.status(400).json({
           message: "User email already verified",
         });
@@ -151,7 +151,7 @@ export async function signup(req, res) {
       message: "Account created successfully",
     });
   } catch (error) {
-    console.log("error in signup controller", error);
+    console.log("error in signup controller", error.message);
     res.status(500).json({
       message: "Internal server error",
     });
