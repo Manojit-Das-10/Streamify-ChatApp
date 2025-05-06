@@ -18,12 +18,12 @@ export async function generateOTP(req, res) {
       return res.status(400).json({ message: "Invalid email format" });
     }
   
-    const existingUser = await Otp.findOne({ email });
-      if (existingUser.verified === true) {
-        return res.status(400).json({
-          message: "User email already verified",
-        });
-      }
+    // const existingUser = await Otp.findOne({ email });
+    //   if (existingUser.verified === true) {
+    //     return res.status(400).json({
+    //       message: "User email already verified",
+    //     });
+    //   }
   
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
