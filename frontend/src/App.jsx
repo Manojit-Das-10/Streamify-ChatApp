@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
@@ -14,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import { Navigate } from "react-router";
 import PageLoader from "./components/PageLoader.jsx";
 import useAuthUser from "./hooks/useAuthUser.js";
+import Layout from "./components/Layout.jsx";
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
@@ -24,13 +24,15 @@ const App = () => {
   if (isLoading) return <PageLoader />;
 
   return (
-    <div data-theme="night" className="h-screen">
+    <div data-theme="forest" className="h-screen">
       <Routes>
         <Route
           path="/"
           element={
             isAuthenticated && isOnboarded ? (
-              <HomePage />
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )
@@ -63,7 +65,7 @@ const App = () => {
           element={isAuthenticated ? <CheckPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/notification"
+          path="/notifications"
           element={
             isAuthenticated ? <NotificationPage /> : <Navigate to="/login" />
           }
