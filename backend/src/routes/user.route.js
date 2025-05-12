@@ -5,16 +5,16 @@ import { generalapiLimiter, strictapiLimiter } from "../middlewares/rateLimiter.
 
 const router = express.Router();
 
-// Apply auth middleware to all routes in this router
-router.use(protectedRoute);
+// Apply middleware to all routes in this router
+router.use(generalapiLimiter, protectedRoute);
 
-router.get("/",generalapiLimiter, getRecommendedUsers);
-router.get("/friends",strictapiLimiter, getMyFriends);
+router.get("/", getRecommendedUsers);
+router.get("/friends", getMyFriends);
 
-router.post("/friend-request/:id",strictapiLimiter, sendFriendRequest)
-router.put("/friend-request/:id/accept",strictapiLimiter, acceptFriendRequest)
+router.post("/friend-request/:id", sendFriendRequest)
+router.put("/friend-request/:id/accept", acceptFriendRequest)
 
-router.get("/friend-requests",generalapiLimiter, getFriendRequests);
-router.get("/outgoing-friend-requests", generalapiLimiter, getOutgoingFriendReqs);
+router.get("/friend-requests", getFriendRequests);
+router.get("/outgoing-friend-requests", getOutgoingFriendReqs);
 
 export default router;
