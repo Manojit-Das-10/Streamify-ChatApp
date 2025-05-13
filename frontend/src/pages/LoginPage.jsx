@@ -80,7 +80,7 @@ const LoginPage = () => {
                     />
                   </div>
 
-                  <button type="submit" className="btn btn-primary w-full" disabled={isPending}>
+                  <button type="submit" className="btn btn-primary w-full mt-4" disabled={isPending}>
                     {isPending ? (
                       <>
                         <span className="loading loading-spinner loading-xs"></span>
