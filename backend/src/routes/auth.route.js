@@ -5,18 +5,19 @@ import { protectedRoute } from "../middlewares/auth.middleware.js";
 import checkEmailVerified from "../middlewares/otp.middleware.js";
 
 const router = express.Router()
+router.use(generalapiLimiter);
 
-router.post("/generate-otp", strictapiLimiter,generateOTP);
-router.post("/verify-otp", strictapiLimiter,verifyOtp);
+router.post("/generate-otp", generateOTP);
+router.post("/verify-otp", verifyOtp);
 
-router.post("/signup", strictapiLimiter, checkEmailVerified, signup);
-router.post("/login", strictapiLimiter, login);
-router.post("/logout", generalapiLimiter, logout);
+router.post("/signup", checkEmailVerified, signup);
+router.post("/login", login);
+router.post("/logout", logout);
 
-router.post("/onboarding", strictapiLimiter, protectedRoute, onboard)
+router.post("/onboarding", protectedRoute, onboard)
 
 // check if the user is logged in or not
-router.get("/check-auth", generalapiLimiter, protectedRoute, (req, res) => {
+router.get("/check-auth", protectedRoute, (req, res) => {
     res.status(200).json({
         success: true,
         user: req.user,

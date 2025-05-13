@@ -1,10 +1,10 @@
 import express from 'express'
-import { strictapiLimiter } from '../middlewares/rateLimiter.js';
+import { generalapiLimiter, strictapiLimiter } from '../middlewares/rateLimiter.js';
 import { protectedRoute } from '../middlewares/auth.middleware.js';
 import { getStreamToken } from '../controllers/chat.controller.js';
 
 const router = express.Router();
 
-router.get('/token', strictapiLimiter, protectedRoute, getStreamToken);
+router.get('/token', protectedRoute, getStreamToken);
 
 export default router;

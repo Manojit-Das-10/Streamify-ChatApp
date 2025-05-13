@@ -6,7 +6,7 @@ import { generalapiLimiter, strictapiLimiter } from "../middlewares/rateLimiter.
 const router = express.Router();
 
 // Apply middleware to all routes in this router
-router.use(generalapiLimiter, protectedRoute);
+router.use( protectedRoute);
 
 router.get("/", getRecommendedUsers);
 router.get("/friends", getMyFriends);
