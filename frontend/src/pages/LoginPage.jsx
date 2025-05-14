@@ -1,28 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { ShipWheelIcon } from "lucide-react";
-import { Link } from 'react-router';
-import useLogin from '../hooks/useLogin';
+import { Link } from "react-router";
+import useLogin from "../hooks/useLogin";
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginPage = () => {
-
   const [loginData, setLoginData] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
-  const {loginMutation, isPending, error } = useLogin();
+  const { loginMutation, isPending, error } = useLogin();
 
   const handleLogin = (e) => {
     e.preventDefault();
     loginMutation(loginData);
-  }
+  };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
-    <div
-      className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8"
-      data-theme="forest"
-    >
+    <div className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden">
         {/* LOGIN FORM SECTION */}
         <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
@@ -61,26 +63,49 @@ const LoginPage = () => {
                       placeholder="hello@example.com"
                       className="input input-bordered w-full"
                       value={loginData.email}
-                      onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                      onChange={(e) =>
+                        setLoginData({ ...loginData, email: e.target.value })
+                      }
                       required
                     />
                   </div>
 
-                  <div className="form-control w-full space-y-2">
+                  <div className="form-control w-full space-y-2 relative">
                     <label className="label">
                       <span className="label-text">Password</span>
                     </label>
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      className="input input-bordered w-full"
-                      value={loginData.password}
-                      onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        className="input input-bordered w-full pr-12"
+                        value={loginData.password}
+                        onChange={(e) =>
+                          setLoginData({
+                            ...loginData,
+                            password: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                      <span
+                        className="absolute right-4 cursor-pointer top-1/2 transform -translate-y-1/2 text-gray-500"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {showPassword ? (
+                          <EyeOff size={20} />
+                        ) : (
+                          <Eye size={20} />
+                        )}
+                      </span>
+                    </div>
                   </div>
 
-                  <button type="submit" className="btn btn-primary w-full mt-4" disabled={isPending}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-full mt-4"
+                    disabled={isPending}
+                  >
                     {isPending ? (
                       <>
                         <span className="loading loading-spinner loading-xs"></span>
@@ -94,7 +119,10 @@ const LoginPage = () => {
                   <div className="text-center mt-4">
                     <p className="text-sm">
                       Don't have an account?{" "}
-                      <Link to="/signup" className="text-primary hover:underline">
+                      <Link
+                        to="/signup"
+                        className="text-primary hover:underline"
+                      >
                         Create one
                       </Link>
                     </p>
@@ -110,20 +138,27 @@ const LoginPage = () => {
           <div className="max-w-md p-8">
             {/* Illustration */}
             <div className="relative aspect-square max-w-sm mx-auto">
-              <img src="/videocall.png" alt="Language connection illustration" className="w-full h-full" />
+              <img
+                src="/videocall.png"
+                alt="Language connection illustration"
+                className="w-full h-full"
+              />
             </div>
 
             <div className="text-center space-y-3 mt-6">
-              <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
+              <h2 className="text-xl font-semibold">
+                Connect with language partners worldwide
+              </h2>
               <p className="opacity-70">
-                Practice conversations, make friends, and improve your language skills together
+                Practice conversations, make friends, and improve your language
+                skills together
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
