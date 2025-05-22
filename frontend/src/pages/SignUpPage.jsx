@@ -65,20 +65,12 @@ const SignUpPage = () => {
   // Handle Email Verification
   const handleVerifyEmail = (e) => {
     e.preventDefault();
-    if (!signupData.email) {
-      toast.error("Please enter an email first.");
-      return;
-    }
     generateOtpMutation({ email: signupData.email });
   };
 
   // Handle OTP Submission
   const handleSubmitOtp = (e) => {
     e.preventDefault();
-    if (!otp) {
-      toast.error("Please enter the OTP.");
-      return;
-    }
     verifyOtpMutation({ email: signupData.email, otp });
   };
 
