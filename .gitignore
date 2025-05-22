@@ -7,12 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Environment variables
-.env
-.env.*  # For .env.development, .env.production, etc.
-
-
-# Build outputs
+node_modules
 dist
 dist-ssr
 *.local
@@ -27,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.env
